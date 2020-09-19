@@ -13,8 +13,7 @@ class BlogsPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Blog> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = service.getBlogs(page, limit)
-            val blogs = response.results
+            val blogs = service.getBlogs(page, limit)
             LoadResult.Page(
                 data = blogs,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
