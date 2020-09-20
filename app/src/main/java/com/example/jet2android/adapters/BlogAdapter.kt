@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.jet2android.R
 import com.example.jet2android.data.Blog
 import com.example.jet2android.databinding.ListItemBlogBinding
 import java.text.ParseException
@@ -67,17 +70,38 @@ private class BlogDifferenciateCallback : DiffUtil.ItemCallback<Blog>() {
 
 @BindingAdapter("setLikes")
 fun setLikes(view: TextView, likes: Int) {
-    view.text = getFormattedNumber(likes.toLong()) + " Likes"
+    view.text = view.context.getString(R.string.str_likes, getFormattedNumber(likes.toLong()))
 }
 
 @BindingAdapter("setComments")
-fun setComments(view: TextView, likes: Int) {
-    view.text = getFormattedNumber(likes.toLong()) + " Comments"
+fun setComments(view: TextView, comments: Int) {
+    view.text = view.context.getString(R.string.str_comments, getFormattedNumber(comments.toLong()))
 }
 
 @BindingAdapter("setBlogTime")
 fun setBlogTime(view: TextView, createdAt: String) {
     view.text = getTimeDifference(createdAt)
+}
+
+@BindingAdapter("circularImageFromUrl")
+fun circularImageFromUrl(view: ImageView, imageUrl: String?) {
+    if (!imageUrl.isNullOrEmpty()) {
+        Glide.with(view.context)
+            .load(imageUrl)
+            .circleCrop()
+            .into(view)
+    }
+}
+
+@BindingAdapter("imageFromUrl")
+fun imageFromUrl(view: ImageView, imageUrl: String?) {
+    System.out.println("Image URL - " + imageUrl)
+    if (!imageUrl.isNullOrEmpty()) {
+        Glide.with(view.context)
+            .load(imageUrl)
+            .centerCrop()
+            .into(view)
+    }
 }
 
 @SuppressLint("SimpleDateFormat")

@@ -13,16 +13,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/user_photo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:contentDescription="@string/user_image"
+            android:scaleType="centerCrop"
+            app:circularImageFromUrl="@{blog.user.get(0).avatar}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/userName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_normal"
             android:gravity="center_horizontal"
+            android:textStyle="bold"
             android:text="@{blog.user.get(0).name}"
             android:textAppearance="?attr/textAppearanceListItem"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/user_photo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -33,6 +48,7 @@
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
             android:gravity="center_horizontal"
+            android:textStyle="bold"
             android:text="@{blog.user.get(0).lastname}"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintStart_toEndOf="@id/userName"
@@ -43,9 +59,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_normal"
             android:gravity="center_horizontal"
-            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="@dimen/small_font_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:setBlogTime="@{blog.createdAt}" />
@@ -55,30 +72,49 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_normal"
             android:gravity="center_horizontal"
             android:text="@{blog.user.get(0).designation}"
-            android:textAppearance="?attr/textAppearanceListItem"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textAppearance="?attr/textAppearanceListItemSecondary"
+            app:layout_constraintStart_toEndOf="@id/user_photo"
             app:layout_constraintTop_toBottomOf="@id/userName" />
+
+        <ImageView
+            android:id="@+id/articleImage"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:contentDescription="@string/article_item_image"
+            android:scaleType="centerCrop"
+            app:imageFromUrl='@{blog.media.size() > 0 ? blog.media.get(0).image : null }'
+            app:isGone="@{blog.media.size() == 0}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userDesignation" />
+
 
         <TextView
             android:id="@+id/content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_normal"
-            android:gravity="center_horizontal"
+            android:gravity="start"
             android:text="@{blog.content}"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userDesignation" />
+            app:layout_constraintTop_toBottomOf="@id/articleImage" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_normal"
             android:gravity="center_horizontal"
             android:text='@{blog.media.size() > 0 ? blog.media.get(0).title : "No Data" }'
@@ -91,11 +127,12 @@
             android:id="@+id/url"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_normal"
             android:gravity="center_horizontal"
             android:text='@{blog.media.size() > 0 ? blog.media.get(0).url : "No Data" }'
-            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="@dimen/small_font_size"
             app:isGone="@{blog.media.size() == 0}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />
@@ -106,8 +143,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_normal"
             android:gravity="center_horizontal"
+            android:textStyle="bold"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/url"
@@ -118,8 +157,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_normal"
             android:gravity="center_horizontal"
+            android:textStyle="bold"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/url"

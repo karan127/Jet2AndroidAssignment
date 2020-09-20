@@ -23,10 +23,21 @@
             android:layout_marginStart="@dimen/side_margin"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginEnd="@dimen/side_margin"
+            android:layout_marginBottom="@dimen/margin_normal"
             android:background="@color/colorAccent"
             android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/list_item_blog" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleX="0.10"
+            android:scaleY="0.10"
+            android:textColor="@color/colorAccent"
+            android:visibility="gone" />
 
     </FrameLayout>
 
