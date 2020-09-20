@@ -30,7 +30,6 @@ class BlogsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        System.out.println("*****onCreateView*******")
         binding = BlogsFragmentBinding.inflate(inflater, container, false)
         binding.blogList.adapter = adapter
 

@@ -17,7 +17,7 @@ class BlogsPagingSource(
             LoadResult.Page(
                 data = blogs,
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
-                nextKey = if (blogs.size <= limit) null else page + 1
+                nextKey = if (blogs.size < limit) null else page + 1
             )
         } catch (exception: Exception) {
             LoadResult.Error(exception)

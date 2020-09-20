@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/userName"
@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
-            android:background="@color/colorPrimary"
             android:gravity="center_horizontal"
             android:text="@{blog.user.get(0).name}"
             android:textAppearance="?attr/textAppearanceListItem"
@@ -33,7 +32,6 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
-            android:background="@color/colorPrimary"
             android:gravity="center_horizontal"
             android:text="@{blog.user.get(0).lastname}"
             android:textAppearance="?attr/textAppearanceListItem"
@@ -41,17 +39,67 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/createdAt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:gravity="center_horizontal"
+            android:textAppearance="?attr/textAppearanceListItem"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setBlogTime="@{blog.createdAt}" />
+
+        <TextView
+            android:id="@+id/userDesignation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:gravity="center_horizontal"
+            android:text="@{blog.user.get(0).designation}"
+            android:textAppearance="?attr/textAppearanceListItem"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userName" />
+
+        <TextView
             android:id="@+id/content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
-            android:background="@color/colorPrimary"
             android:gravity="center_horizontal"
             android:text="@{blog.content}"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userName" />
+            app:layout_constraintTop_toBottomOf="@id/userDesignation" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:gravity="center_horizontal"
+            android:text='@{blog.media.size() > 0 ? blog.media.get(0).title : "No Data" }'
+            android:textAppearance="?attr/textAppearanceListItem"
+            app:isGone="@{blog.media.size() == 0}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content" />
+
+        <TextView
+            android:id="@+id/url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:gravity="center_horizontal"
+            android:text='@{blog.media.size() > 0 ? blog.media.get(0).url : "No Data" }'
+            android:textAppearance="?attr/textAppearanceListItem"
+            app:isGone="@{blog.media.size() == 0}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
 
         <TextView
             android:id="@+id/likes"
@@ -59,11 +107,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
-            android:background="@color/colorPrimary"
             android:gravity="center_horizontal"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content"
+            app:layout_constraintTop_toBottomOf="@id/url"
             app:setLikes="@{blog.likes}" />
 
         <TextView
@@ -72,12 +119,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
-            android:background="@color/colorPrimary"
             android:gravity="center_horizontal"
             android:textAppearance="?attr/textAppearanceListItem"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content"
+            app:layout_constraintTop_toBottomOf="@id/url"
             app:setComments="@{blog.comments}" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:background="@color/colorGray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/likes" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,6 +1,8 @@
 package com.example.jet2android.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -9,6 +11,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.jet2android.data.Blog
 import com.example.jet2android.databinding.ListItemBlogBinding
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.math.ln
 import kotlin.math.pow
 
@@ -67,6 +73,50 @@ fun setLikes(view: TextView, likes: Int) {
 @BindingAdapter("setComments")
 fun setComments(view: TextView, likes: Int) {
     view.text = getFormattedNumber(likes.toLong()) + " Comments"
+}
+
+@BindingAdapter("setBlogTime")
+fun setBlogTime(view: TextView, createdAt: String) {
+    view.text = getTimeDifference(createdAt)
+}
+
+@SuppressLint("SimpleDateFormat")
+private fun getTimeDifference(createdAt: String): CharSequence? {
+    var day = 0
+    var hh = 0
+    var mm = 0
+    try {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        val oldDate: Date = dateFormat.parse(createdAt)
+        val cDate = Date()
+        val timeDiff: Long = cDate.time - oldDate.time
+        day = TimeUnit.MILLISECONDS.toDays(timeDiff).toInt()
+        hh =
+            ((TimeUnit.MILLISECONDS.toHours(timeDiff) - TimeUnit.DAYS.toHours(day.toLong())).toInt())
+        mm = ((TimeUnit.MILLISECONDS.toMinutes(timeDiff) - TimeUnit.HOURS.toMinutes(
+            TimeUnit.MILLISECONDS.toHours(timeDiff)
+        )).toInt())
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+
+    return if (day != 0) {
+        "$day d"
+    } else if (hh != 0) {
+        "$hh hr"
+    } else {
+        "$mm min"
+    }
+}
+
+
+@BindingAdapter("isGone")
+fun bindIsGone(view: View, isGone: Boolean) {
+    view.visibility = if (isGone) {
+        View.GONE
+    } else {
+        View.VISIBLE
+    }
 }
 
 private fun getFormattedNumber(count: Long): String {
